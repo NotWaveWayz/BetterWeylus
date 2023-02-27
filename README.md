@@ -1,2 +1,2 @@
 # BetterWeylus
-Weylus, but better using AutoHotkey.
+Weylus, but better.
