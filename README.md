@@ -21,8 +21,8 @@ ADB: Users can access other methods through a provided link. (not here yet)
 To use BetterWeylus, simply download the executable (instant exe download here) or AutoHotkey script (instant ahk download here) (requires Autohotkey 1.1+ to be installed, v2 wont be supported) and run it. The GUI will appear, allowing you to configure your Weylus settings. Note that Weylus must be installed on your computer for BetterWeylus to work properly.
 
 # Note
-only supports a single instance of weylus, for now.
-check the [wiki](https://github.com/NotWaveWayz/BetterWeylus/wiki) for more information on weylus
+Only supports a single instance of Weylus, for now.
+Check the [Wiki](https://github.com/NotWaveWayz/BetterWeylus/wiki) for more information on BetterWeylus.
 
 # Credit
 [Norinorin's](https://github.com/norinorin) [Active Area (Client Mod)](https://gist.github.com/norinorin/a2d71fbf5c7085fdc47b88d3fd463ab8)
