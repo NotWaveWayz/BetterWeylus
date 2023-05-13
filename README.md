@@ -22,6 +22,7 @@ To use BetterWeylus, simply download the executable (instant exe download here) 
 
 # Note
 only supports a single instance of weylus, for now.
+check the [wiki](https://github.com/NotWaveWayz/BetterWeylus/wiki) for more information on weylus
 
 # Credit
 [Norinorin's](https://github.com/norinorin) [Active Area (Client Mod)](https://gist.github.com/norinorin/a2d71fbf5c7085fdc47b88d3fd463ab8)
