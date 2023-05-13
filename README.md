@@ -12,7 +12,7 @@ BetterWeylus provides a graphical user interface (GUI) that is more native to Wi
 * Configuring hidden (parameters only) commands.
 * App settings: Users can choose to run Weylus with parameters, copy parameters to clipboard, and show a message containing parameters.
 * Universal settings: Users can choose to hide the CMD prompt.
-* Custom resolution/tablet area (WIP).
+* Custom resolution/tablet area ([Active Area](https://gist.github.com/norinorin/a2d71fbf5c7085fdc47b88d3fd463ab8) & ADB (soon™) ).
 
 ## Installation
 
