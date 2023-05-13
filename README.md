@@ -15,7 +15,7 @@ App settings: Users can choose to run Weylus with parameters, copy parameters to
 
 Universal settings: Users can choose to hide that ugly CMD Prompt.
 
-ADB: Users can access other methods through a provided link. (not here yet)
+Custom Resolution/Tablet Area: wip
 
 # Install
 To use BetterWeylus, simply download the executable (instant exe download here) or AutoHotkey script (instant ahk download here) (requires Autohotkey 1.1+ to be installed, v2 wont be supported) and run it. The GUI will appear, allowing you to configure your Weylus settings. Note that Weylus must be installed on your computer for BetterWeylus to work properly.
