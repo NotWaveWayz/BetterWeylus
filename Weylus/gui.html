@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!--
+    The IE Compatibility flag, while not always necessary, makes sure your page
+    will always load in IE11+ rendering mode instead of being limited to IE7
+    features and behaviors. While IE11 is still relatively old as a rendering
+    engine, it supports the most fundamental parts needed for modern webpages to
+    function correctly.
+
+    Neutron will do its best to enable IE11+ rendering mode regardless of this
+    tag, but in current releases pages will not render correctly when compiled
+    unless this tag is present. Because of that and other edge cases, any page
+    you write to load in Neutron should contain this meta tag.
+  -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script>window.MSInputMethodContext && document.documentMode && document.write('<script src="ie11CustomProperties.min.js"><\/script>');</script>
+    <title>BetterWeylus</title>
+
+    <style>
+        .title-bar {
+            padding: 0.35em 0.5em;
+            flex-grow: 1;
+        }
+
+        .title-btn {
+            padding: 0.35em 1.0em;
+            cursor: pointer;
+            vertical-align: bottom;
+            font-family: Webdings;
+            font-size: 10pt;
+        }
+
+        body .title-btn-restore {
+            display: none;
+        }
+
+        body.neutron-maximized .title-btn-restore {
+            display: block;
+        }
+
+        body.neutron-maximized .title-btn-maximize {
+            display: none;
+        }
+
+        .title-btn:hover {
+            background: rgba(0, 0, 0, .2);
+        }
+
+        .title-btn-close:hover {
+            background: #dc3545;
+        }
+
+        /* Navbar styling */
+        #navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #222;
+            padding: 8px;
+        }
+
+        #navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 15px;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+
+        #navbar a:hover {
+            background-color: #444;
+        }
+
+        #navbar a.active {
+            background-color: #444;
+        }
+
+        #titlebar {
+            -ms-user-select: none;
+            user-select: none;
+            display: flex;
+            color: white;
+            background: #222;
+            font-family: Segoe UI;
+            font-size: 9pt;
+        }
+
+        .title-icon {
+            padding-left: 5px;
+            font-size: 16px;
+        }
+
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        #main {
+            overflow-y: auto;
+        }
+
+        input {
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 4px 4px;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        input:focus {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* kinda like it 
+        input::-ms-clear {
+         display: none;
+        }
+ */
+ input[type="checkbox"] + label {
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+        button {
+            padding: 10px 10px;
+            margin-right: 5px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            -ms-user-select: none;
+    user-select: none;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+
+        .group-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .group-box h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 22px;
+            color: #333;
+        }
+
+        .toggle-password {
+            width: 50px;
+        }
+
+        #address-box button {
+            width: 100%;
+            margin: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div id="titlebar">
+            <span class="title-icon">✒</span>
+            <span class="title-bar" onmousedown='neutron.DragTitleBar()'>BetterWeylus</span>
+            <span class="title-btn" onclick="neutron.Minimize()">0</span>
+            <span class='title-btn title-btn-maximize' onclick='neutron.Maximize()'>1</span>
+            <span class='title-btn title-btn-restore' onclick='neutron.Maximize()'>2</span>
+            <span class="title-btn title-btn-close" onclick="neutron.Close()">r</span>
+        </div>
+
+        <div id="navbar" onmousedown='neutron.DragTitleBar()'>
+            <a href="#" class="tablinks active" onclick="openTab(event, 'Weylus')">Weylus</a>
+            <a href="#" class="tablinks" onclick="openTab(event, 'Sharing')">Sharing</a>
+            <a href="#" class="tablinks" onclick="openTab(event, 'Plugins')">Plugins</a>
+            <a href="#" class="tablinks" onclick="openTab(event, 'Settings')">Settings</a>
+        </div>
+    </header>
+
+    <div id="main">
+        <form onsubmit="ahk.CompleteWeylus(event)">
+        <div id="Weylus" class="tabcontent">
+                <div class="group-box" id="app-settings-box">
+                    <button type="submit">Run Weylus</button>
+                    <button onclick="showMessage()">Show Message</button>
+                    <button onclick="copyToClipboard()">Copy to Clipboard</button>
+                </div>
+                <div class="group-box" id="server-settings-box">
+                    <h3>Server Settings</h3>
+                    <label for="AccessCode">Access Code:</label>
+                    <input type="password" id="AccessCode" maxlength="256" title="Limit: 256"/>
+                    <button class="toggle-password" type="button" onclick="togglePasswordVisibility()" title="Show Password">•••</button>
+                    <br>
+                    <label for="BindAddress">Bind Address:</label>
+                    <input type="text" id="BindAddress" value="0.0.0.0" maxlength="15" pattern="(\b25[0-5]|\b2[0-4][0-9]|\b[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}" title="###.###.###.###">
+                    <br>
+                    <label for="WebPort">Web Port:</label>
+                    <input type="text" inputmode="numeric" id="WebPort" value="1701" maxlength="5" pattern="^((6553[0-5])|(655[0-2][0-9])|(65[0-4][0-9]{2})|(6[0-4][0-9]{3})|([1-5][0-9]{4})|([0-5]{0,5})|([0-9]{1,4}))$" title="0 - 65535">
+                    <br>
+                    <label for="WebSocketPort">WebSocket Port:</label>
+                    <input type="text" inputmode="numeric" id="WebSocketPort" value="9001" maxlength="5" pattern="^((6553[0-5])|(655[0-2][0-9])|(65[0-4][0-9]{2})|(6[0-4][0-9]{3})|([1-5][0-9]{4})|([0-5]{0,5})|([0-9]{1,4}))$" title="0 - 65535">
+                    <br>
+                    <label for="HideDefault"></label>
+                </div>
+
+                <div class="group-box" id="universal-settings-box">
+                    <h3>Global Settings</h3>
+                    <input type="checkbox" id="HideCMD" />
+                    <label class="checkbox-label" for="HideCMD" title="Hides all Weylus 'cmd.exe' windows">Hide CMD Prompt</label>
+                    <br>
+                    <input type="checkbox" id="SetIcon" />
+                    <label class="checkbox-label" for="SetIcon">Set Custom Icon</label>
+                </div>
+
+                <div class="group-box" id="encoding-settings-box">
+                    <h3>Encoding Settings</h3>
+                    <input type="checkbox" id="NVENC" />
+                    <label class="checkbox-label" for="NVENC" title="NVENC">GPU Encoding</label>
+                    <br>
+                    <input type="checkbox" id="MediaFoundation" />
+                    <label class="checkbox-label" for="MediaFoundation"
+                        title="MediaFoundation">Hardware Acceleration</label>
+                </div>
+
+                <div class="group-box" id="miscellaneous-settings-box">
+                    <h3>Miscellaneous Settings</h3>
+                    <input type="checkbox" id="AutoStart" />
+                    <label class="checkbox-label" for="AutoStart">Auto Start</label>
+                    <br>
+                    <input type="checkbox" id="NoGUI" />
+                    <label class="checkbox-label" for="NoGUI">No GUI</label>
+                </div>
+
+                <div class="group-box" id="custom-settings-box">
+                    <h3>Custom Settings</h3>
+                    <label for="CustomLibJS">Custom JS:</label>
+                    <input type="text" id="CustomLibJS" value="" />
+                    <br>
+                    <label for="CustomIndexHTML">Custom Index HTML:</label>
+                    <input type="text" id="CustomIndexHTML" value="" />
+                    <br>
+                    <label for="CustomAccessHTML">Custom Access HTML:</label>
+                    <input type="text" id="CustomAccessHTML" value="" />
+                    <br>
+                    <label for="CustomStyleCSS">Custom CSS:</label>
+                    <input type="text" id="CustomStyleCSS" value="" />
+                    <br>
+                    <label for="Extra">Extra:</label>
+                    <input type="text" id="Extra" value="" />
+                </div>
+        </div>
+    </form>
+        <div id="Sharing" class="tabcontent">
+            <div id="addressSection">
+                <div class="group-box" id="address-box">
+                    <h3>Address</h3>
+                    <label for="shareIP">IP Address:</label>
+                    <select id="shareIP" onchange="updateSharing()">
+                        <!-- Populate options dynamically from IPList -->
+                    </select>
+                    <br>
+                    <label for="shareProtocol">Protocol:</label>
+                    <select id="shareProtocol">
+                        <option>None</option>
+                        <option value="http://">http</option>
+                        <option value="https://">https</option>
+                    </select>
+                    <br>
+                    <input type="checkbox" id="shareAccessCode" disabled onchange="updateSharing()"> Access Code
+                    <br>
+                    <input type="checkbox" id="shareWebPort" disabled onchange="updateSharing()"> Web Port
+                    <br>
+                    <button onclick="addCustomAddress()">Add Custom Address</button>
+                    <button onclick="removeAddress()">Remove Selected</button>
+                    <button onclick="addNetworkAddresses()">Add Network IPs</button>
+                    <button onclick="resetAddresses()">Reset To Default</button>
+                </div>
+            </div>
+
+            <div id="qrCodeSection">
+                <div class="group-box" id="qr-code-box">
+                    <h3>QR Code</h3>
+                    <label for="qrCodeType">Type:</label>
+                    <select id="qrCodeType" onchange="getData()">
+                        <option value="Built-In Generator">Built-In Generator</option>
+                        <option value="API (Online)">API (Online)</option>
+                    </select>
+                    <br>
+                    <label for="qrCodeECL">Error Correction:</label>
+                    <select id="qrCodeECL" onchange="getData()">
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Quartile">Quartile</option>
+                        <option value="High">High</option>
+                    </select>
+                    <br>
+                    <img id="qrCodeImage" src="bw/qrcodebg.png" alt="QR Code unavailable" width="230" height="230"
+                        onclick="qrCodeDetails()">
+                    <div class="url-preview">
+                        <input type="text" id="qrCodePreviewText" readonly>
+                        <button onclick="copyToClipboard()">📋</button>
+                    </div>
+                    <br>
+                    <button onclick="generateQRCode()">Generate QR Code</button>
+                    <button onclick="saveQRCode()">Save QR Code</button>
+                    <button onclick="viewQRCode()">View QR Code</button>
+                </div>
+            </div>
+        </div>
+
+
+            <div id="Plugins" class="tabcontent">
+                <div class="group-box" id="norinorin-active-area-box">
+                    <h3>Norinorin's Active Area</h3>
+                    <input type="checkbox" id="NCM" onclick="NCMToggle()" checked> Norinorin's Active Area<br>
+                    <button id="installBtn" onclick="installNCM()" disabled>Install Required Files</button><br>
+                    <input type="text" id="NCMLJS" value="">
+                    <input type="text" id="NCMIHTML" value="">
+                </div>
+
+                <div class="group-box" id="adb-box">
+                    <h3>ADB</h3>
+                    <a href="%MainHostURL%/%RepoUser%/%RepoName%/wiki/Methods">Other methods...</a>
+                </div>
+            </div>
+
+            <div id="Settings" class="tabcontent">
+                <div class="group-box" id="directory-settings-box">
+                    <h3>Directory Settings</h3>
+                    <label for="folderLocation">Folder Location:</label>
+                    <button onclick="selectPath()">Provide Weylus Path</button>
+                    <input type="text" id="path" value="" />
+                    <br>
+                    <label for="weylusConfig">Use Weylus Config:</label>
+                    <select id="weylusConfig">
+                        <option value="On Startup">On Startup</option>
+                        <option value="Always">Always</option>
+                        <option value="Never">Never</option>
+                    </select>
+                </div>
+                <label for="customTheme">Load Custom Theme:</label>
+                <input type="file" id="customTheme" accept=".css" onchange="applyCustomTheme()">
+
+            </div>
+        </div>
+        <script>
+
+
+function togglePasswordVisibility() {
+    const passwordField = document.getElementById('AccessCode');
+    const toggleIcon = document.querySelector('.toggle-password');
+
+    passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+    toggleIcon.innerHTML = passwordField.type === 'password' ? '•••' : 'ABC';
+
+    const tooltipText = passwordField.type === 'password' ? 'Show Password' : 'Hide Password';
+    toggleIcon.setAttribute('title', tooltipText);
+}
+            // Function to open tabs
+            function openTab(evt, tabName) {
+                var tabContents = document.querySelectorAll(".tabcontent");
+                for (var i = 0; i < tabContents.length; i++) {
+                    tabContents[i].style.display = "none";
+                }
+
+                var tabLinks = document.querySelectorAll(".tablinks");
+                for (var i = 0; i < tabLinks.length; i++) {
+                    tabLinks[i].classList.remove("active");
+                }
+
+                var tabElement = document.getElementById(tabName);
+                tabElement.style.display = "block";
+                evt.currentTarget.classList.add("active");
+            }
+
+            // Trigger the click on the first tab to set the initial state
+            document.querySelector('.tablinks').click();
+
+
+            // Function to apply custom theme
+            function applyCustomTheme() {
+                var file = document.getElementById('customTheme').files[0];
+
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var customTheme = e.target.result;
+
+                        var styleElement = document.getElementById('customThemeStyle') || document.createElement('style');
+                        styleElement.id = 'customThemeStyle';
+                        styleElement.textContent = customTheme;
+
+                        document.head.appendChild(styleElement);
+                    };
+                    reader.readAsText(file);
+                }
+            }
+            document.addEventListener('contextmenu', function(event) {
+  var tagName = event.target.tagName.toLowerCase();
+  if (!(tagName === 'input' || tagName === 'textarea')) {
+    event.preventDefault();
+  }
+});
+
+
+
+
+
+
+            
+        </script>
+
+        <script>
+
+            function showMessage() {
+                // Add logic for Show Message button
+            }
+
+            function copyToClipboard() {
+                // Add logic for Copy to Clipboard button
+            }
+
+            function updateSharing() {
+                // Add logic for updating sharing options
+            }
+
+            function addCustomAddress() {
+                // Add logic for adding custom address
+            }
+
+            function removeAddress() {
+                // Add logic for removing selected address
+            }
+
+            function addNetworkAddresses() {
+                // Add logic for adding network addresses
+            }
+
+            function resetAddresses() {
+                // Add logic for resetting addresses to default
+            }
+
+            function getData() {
+                // Add logic for getting data based on QR code options
+            }
+
+            function generateQRCode() {
+                // Add logic for generating QR code
+            }
+
+            function saveQRCode() {
+                // Add logic for saving QR code
+            }
+
+            function viewQRCode() {
+                // Add logic for viewing QR code
+            }
+
+            function qrCodeDetails() {
+                // Add logic for displaying QR code details
+            }
+
+            function ncmToggle() {
+                // Add logic for Norinorin's Active Area toggle
+            }
+
+            function installNCM() {
+                // Add logic for installing required files
+            }
+
+            function selectPath() {
+                // Add logic for selecting Weylus path
+            }
+        </script>
+</body>
+
+</html>
